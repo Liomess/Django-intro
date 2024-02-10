@@ -1,0 +1,81 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+
+    <!-- static data sending-->
+    <h1>how are you doing Ayush</h1> 
+     
+
+    <!-- data sending from backend or server -->
+    <h1>
+        how are you doing {{name}} 
+    </h1>  
+
+
+    <!-- dynamic data sending -->
+    <h1>
+        how are you doing {{name}} <br>
+        you are {{age}} years old  <br>
+        and you are {{nationality}}.
+    </h1>
+
+    <h1>Input your text below: </h1>
+
+    <!-- [action="counter"] sends the submitted text or data to the 'counter' url -->
+    <form method="POST" action="counter">
+        {% csrf_token %}
+        <textarea name="words" rows="25" cols="100"></textarea><br>
+        <!-- 'words' is the name of this textarea -->
+        <input type="submit">
+    </form>
+
+    <br>
+    <br>
+
+    <!-- Dynamic data from the server or database-->
+
+    {% for s in students%}  
+    <h2>
+        Student id is {{s.id}} and <h4>
+            his name is {{s.name}}
+        </h4>
+    </h2>
+    {% endfor %}
+    <!-- very important to end for as this is html file and there are no indentations -->
+
+
+<!-- DB in admin panel -->
+    {% for s in features%}  
+    <h2>
+        Student id is {{s.name}} and <h4>
+            his name is {{s.details}}
+        </h4>
+    </h2>
+    {% endfor %}
+
+<!-- login -->
+    {% if user.is_authenticated %}
+    <h1>Welcome, {{user.username}}</h1>
+    {% else %}
+    <h1>Authenticate First</h1>
+    {% endif %}
+
+
+    <!-- log out -->
+    {% if user.is_authenticated %}
+    <div><a class="getstarted scrollto" href="logout">Logout</a></div>
+    {% else %}
+    <div><a class="getstarted scrollto" href="login">Login or Signup</a></div>
+    {% endif %}
+
+
+</body>
+</html>
